@@ -3,6 +3,11 @@ from collections import namedtuple
 import logging
 
 
+FORMAT = '%(asctime)s %(message)s'
+logging.basicConfig(level=logging.INFO, format=FORMAT)
+logger = logging.getLogger('protocol')
+
+
 class Serial_Protocol:
 
     """
@@ -25,10 +30,23 @@ class Serial_Protocol:
 
         package = self.Package_data(
             current_date=date.today(),
-            current_day=date.day,
-            current_time=datetime.now,
+            current_day=str(date.day),
+            current_time=datetime.now(),
             font_color='Green',
             background_color='Blue'
         )
 
+        logger.info(f"The package data is:\n\
+                    Current date is {package.current_date}\n\
+                    Current day is {package.current_day}\n\
+                    Current time is {package.current_time}\n\
+                    Current font is {package.font_color}\n\
+                    Current background is {package.background_color}")
         return package
+
+
+if __name__ == "__main__":
+
+    Test_Protocol = Serial_Protocol(10, ('test_font', 'test_background'))
+    test_package = Test_Protocol.create_package()
+    logger.info(test_package)

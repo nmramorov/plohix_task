@@ -17,11 +17,7 @@ class TestProtocol(unittest.TestCase):
                                                      user_input=('Test_font', 'Test_color')
                                                     )
         test_package = Test_Protocol.create_package()
-        logging.info(f"The package data is:\nCurrent date is {test_package.current_date}\n\
-                        Current day is {test_package.current_day}\n \
-                        Current time is {test_package.current_time}\n \
-                        Current font is {test_package.font_color}\n \
-                        Current background is {test_package.background_color}")
+        
         self.assertIsNotNone(test_package)
 
 
