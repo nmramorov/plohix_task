@@ -1,6 +1,6 @@
 import sys
-from PyQt5.QtWidgets import (QWidget, QPushButton, 
-    QHBoxLayout, QVBoxLayout, QApplication, QGridLayout)
+
+from PyQt5.QtWidgets import *
 
 
 class Example(QWidget):
@@ -18,6 +18,8 @@ class Example(QWidget):
         setBackgroundColorButton = QPushButton("Задать цвет фона")
 
         setCOMPortButton.setFixedSize(400, 35)
+        setCOMPortButton.setFlat(True)
+        setCOMPortButton.clicked.connect(self.showDialog)
 
         grid = QGridLayout()
         grid.setSpacing(10)
@@ -32,8 +34,12 @@ class Example(QWidget):
         self.setGeometry(300, 300, 800, 500)
         self.setWindowTitle('Mramorov-Volkov-Martinova')    
         self.show()
-        
-        
+
+    def showDialog(self):
+        text, ok = QInputDialog.getText(self, 'Настройка COM порта', 
+            'Введите параметр:')
+
+
 if __name__ == '__main__':
     
     app = QApplication(sys.argv)
