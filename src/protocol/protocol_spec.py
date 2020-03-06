@@ -3,6 +3,8 @@ from collections import namedtuple
 import logging
 from re import match
 
+from package_spec import Package
+
 
 FORMAT = '%(asctime)s %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
@@ -16,9 +18,8 @@ class Serial_Protocol:
     the given serial port
     """
 
-    def __init__(self, period: int, user_input: tuple):   
-        self.period = period
-        self.font_color, self.background_color = user_input
+    def __init__(self):   
+
         self.Package_data = namedtuple("Package_data", "package_id\
                                                     package_len\
                                                     day\
@@ -33,13 +34,8 @@ class Serial_Protocol:
                                                     clock_back_color\
                                                     control_sum")
 
-    def __get_current_date(self):
-        date = datetime.now()
-        parsed_date = __parse_current_date(date)
-        return parsed_date
-
-    def __parse_current_date(self, date_to_parse: str):
-        matched = re.match(r'(?P<year>^.{4})-(?P<month>.{2})-(?P<day>.{2}) (?P<hour>.{2}):(?P<minute>.{2}):(?P<seconds>.{2})', date_to_parse)
+    
+    def init_package(self):
 
 
     def create_package(self) -> namedtuple:
