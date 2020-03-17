@@ -17,10 +17,10 @@ class GUI(QWidget):
         super().__init__()
         self.user_data = dict(
             data_len=PACKAGE_DATA_LENGTH,  # magic number
-            date_font_color=4,
-            date_back_color=2,
-            clock_font_color=3,
-            clock_back_color=5
+            date_font_color=0,
+            date_back_color=0,
+            clock_font_color=0,
+            clock_back_color=0
         )
         self.package = ''
         
@@ -28,40 +28,13 @@ class GUI(QWidget):
 
         
     def initUI(self):
-        setCOMPortButton = QPushButton("Настроить COM-порт")
-        setDateFontColorButton = QPushButton("Задать цвет шрифта даты")
-        setDateBackColorButton = QPushButton("Задать цвет фона даты")
-        setClockFontButton = QPushButton("Задать цвет шрифта часов")
-        setClockBackButton = QPushButton("Задать цвет фона часов")
-        generatePackageButton = QPushButton("Создать пакет")
-        showPackageInfoButton = QPushButton("Показать содержимое пакета")
-
         self.label = QLabel()
 
-        setCOMPortButton.clicked.connect(self.showCOMDialog)
+        self.generateButtons()
+        self.setButtonsActivities()
 
-        generatePackageButton.clicked.connect(self.generatePackage)
-        showPackageInfoButton.clicked.connect(self.showPackageInfo)
-
-        setDateFontColorButton.clicked.connect(self.showColorDialog)
-        setDateBackColorButton.clicked.connect(self.showColorDialog)
-        setClockFontButton.clicked.connect(self.showColorDialog)
-        setClockBackButton.clicked.connect(self.showColorDialog)
-
-        grid = QGridLayout()
-        grid.setSpacing(10)
-
-        grid.addWidget(self.label)
-
-        grid.addWidget(setCOMPortButton, 1, 0)
-        grid.addWidget(setDateFontColorButton, 2, 0)
-        grid.addWidget(setDateBackColorButton, 3, 0)
-        grid.addWidget(setClockFontButton, 4, 0)
-        grid.addWidget(setClockBackButton, 1, 1)
-        grid.addWidget(generatePackageButton, 2, 1)
-        grid.addWidget(showPackageInfoButton, 3, 1)
-        
-        self.setLayout(grid) 
+        gui_grid = self.setGrid()
+        self.setLayout(gui_grid)
         
         self.setGeometry(300, 300, 800, 500)
         self.setWindowTitle('Mramorov-Volkov-Martinova')    
@@ -75,6 +48,7 @@ class GUI(QWidget):
                             self.user_data['clock_back_color'])
         self.package = p.init_package()
         self.label.setText('Пакет создан')
+        self.showPackageInfoButton.setDisabled(0)
 
     def showPackageInfo(self):
         self.label.setText(str(self.package))
@@ -87,13 +61,56 @@ class GUI(QWidget):
 
     def openColorDialog(self):
         color = QColorDialog.getColor()
+        if self.setDateFontColorButton.isActiveWindow():
+            self.user_data['date_font_color'] = color.name()
+        elif self.setDateBackColorButton.isActiveWindow():
+            self.user_data['date_back_color'] = color.name()
+        elif self.setClockFontButton.isActiveWindow():
+            self.user_data['clock_font_color'] = color.name()
+        elif self.setClockBackButton.isActiveWindow():
+            self.user_data['clock_back_color'] = color.name()
 
-        if color.isValid():
-            print(color.name())
+    def encodeColors(self, color):
+        pass
+
+    def generateButtons(self):
+        self.setCOMPortButton = QPushButton("Настроить COM-порт")
+        self.setDateFontColorButton = QPushButton("Задать цвет шрифта даты")
+        self.setDateBackColorButton = QPushButton("Задать цвет фона даты")
+        self.setClockFontButton = QPushButton("Задать цвет шрифта часов")
+        self.setClockBackButton = QPushButton("Задать цвет фона часов")
+        self.generatePackageButton = QPushButton("Создать пакет")
+        self.showPackageInfoButton = QPushButton("Показать содержимое пакета")
+        self.showPackageInfoButton.setDisabled(1)
+
+    def setButtonsActivities(self):
+        self.setCOMPortButton.clicked.connect(self.showCOMDialog)
+
+        self.generatePackageButton.clicked.connect(self.generatePackage)
+        self.showPackageInfoButton.clicked.connect(self.showPackageInfo)
+
+        self.setDateFontColorButton.clicked.connect(self.showColorDialog)
+        self.setDateBackColorButton.clicked.connect(self.showColorDialog)
+        self.setClockFontButton.clicked.connect(self.showColorDialog)
+        self.setClockBackButton.clicked.connect(self.showColorDialog)
+
+    def setGrid(self):
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        grid.addWidget(self.label)
+
+        grid.addWidget(self.setCOMPortButton, 1, 0)
+        grid.addWidget(self.setDateFontColorButton, 2, 0)
+        grid.addWidget(self.setDateBackColorButton, 3, 0)
+        grid.addWidget(self.setClockFontButton, 4, 0)
+        grid.addWidget(self.setClockBackButton, 1, 1)
+        grid.addWidget(self.generatePackageButton, 2, 1)
+        grid.addWidget(self.showPackageInfoButton, 3, 1)
+        return grid
 
 
 if __name__ == '__main__':
-    
     app = QApplication(sys.argv)
     ex = GUI()
     sys.exit(app.exec_())
