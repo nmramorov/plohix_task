@@ -2,27 +2,30 @@ import sys
 
 from PyQt5.QtWidgets import *
 
-from protocol_spec import Serial_Protocol
+from src.protocol.protocol_spec import Serial_Protocol
 
+
+PACKAGE_DATA_LENGTH = 88
 
 class GUIException(Exception):
     pass
-        
+
 
 class GUI(QWidget):
     
     def __init__(self):
         super().__init__()
-        
-        self.initUI()
         self.user_data = dict(
-            data_len=88, #magic number
-            date_font_color='',
-            date_back_color='',
-            clock_font_color='',
-            clock_back_color=''
+            data_len=PACKAGE_DATA_LENGTH,  # magic number
+            date_font_color=4,
+            date_back_color=2,
+            clock_font_color=3,
+            clock_back_color=5
         )
         self.package = ''
+        
+        self.initUI()
+
         
     def initUI(self):
         setCOMPortButton = QPushButton("Настроить COM-порт")
@@ -33,8 +36,8 @@ class GUI(QWidget):
         generatePackageButton = QPushButton("Создать пакет")
         showPackageInfoButton = QPushButton("Показать содержимое пакета")
 
-        setCOMPortButton.setFixedSize(400, 35)
-        setCOMPortButton.setFlat(True)
+        self.label = QLabel()
+
         setCOMPortButton.clicked.connect(self.showCOMDialog)
 
         generatePackageButton.clicked.connect(self.generatePackage)
@@ -48,10 +51,15 @@ class GUI(QWidget):
         grid = QGridLayout()
         grid.setSpacing(10)
 
-        grid.addWidget(setCOMPortButton, 1, 0)
-        grid.addWidget(setFontColorButton, 2, 0)
+        grid.addWidget(self.label)
 
-        grid.addWidget(setBackgroundColorButton, 3, 0)
+        grid.addWidget(setCOMPortButton, 1, 0)
+        grid.addWidget(setDateFontColorButton, 2, 0)
+        grid.addWidget(setDateBackColorButton, 3, 0)
+        grid.addWidget(setClockFontButton, 4, 0)
+        grid.addWidget(setClockBackButton, 1, 1)
+        grid.addWidget(generatePackageButton, 2, 1)
+        grid.addWidget(showPackageInfoButton, 3, 1)
         
         self.setLayout(grid) 
         
@@ -66,21 +74,22 @@ class GUI(QWidget):
                             self.user_data['clock_font_color'],
                             self.user_data['clock_back_color'])
         self.package = p.init_package()
+        self.label.setText('Пакет создан')
 
     def showPackageInfo(self):
-        pass
+        self.label.setText(str(self.package))
 
     def showCOMDialog(self):
-        text, ok = QInputDialog.getText(self, 'Настройка COM порта', 
-            'Введите параметр:')
+        text, ok = QInputDialog.getText(self, 'Настройка COM порта', 'Введите параметр:')
 
-    def openColorDialog(self, attribute_name):
+    def showColorDialog(self):
+        self.openColorDialog()
+
+    def openColorDialog(self):
         color = QColorDialog.getColor()
 
-        if color.isValid() and attribute_name in self.user_data:
-            self.user_data[attribute_name] = color.name()
-        else:
-            raise GUIException('Color or given attribute name are not valid')
+        if color.isValid():
+            print(color.name())
 
 
 if __name__ == '__main__':

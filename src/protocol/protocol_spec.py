@@ -1,6 +1,6 @@
 import logging
 
-from package_spec import Package
+from src.protocol.package_spec import Package
 
 
 FORMAT = '%(asctime)s %(message)s'
