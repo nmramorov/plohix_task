@@ -12,14 +12,16 @@ class Example(QWidget):
         
         
     def initUI(self):
-        
         setCOMPortButton = QPushButton("Настроить COM-порт")
         setFontColorButton = QPushButton("Задать цвет шрифта")
         setBackgroundColorButton = QPushButton("Задать цвет фона")
 
         setCOMPortButton.setFixedSize(400, 35)
         setCOMPortButton.setFlat(True)
-        setCOMPortButton.clicked.connect(self.showDialog)
+        setCOMPortButton.clicked.connect(self.showCOMDialog)
+
+        setFontColorButton.clicked.connect(self.showColorDialog)
+        setBackgroundColorButton.clicked.connect(self.showColorDialog)
 
         grid = QGridLayout()
         grid.setSpacing(10)
@@ -35,9 +37,18 @@ class Example(QWidget):
         self.setWindowTitle('Mramorov-Volkov-Martinova')    
         self.show()
 
-    def showDialog(self):
+    def showCOMDialog(self):
         text, ok = QInputDialog.getText(self, 'Настройка COM порта', 
             'Введите параметр:')
+
+    def showColorDialog(self):
+        self.openColorDialog()
+
+    def openColorDialog(self):
+        color = QColorDialog.getColor()
+
+        if color.isValid():
+            print(color.name())
 
 
 if __name__ == '__main__':

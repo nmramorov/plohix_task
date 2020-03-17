@@ -1,9 +1,6 @@
-from datetime import datetime
-from collections import namedtuple
 import logging
-from re import match
 
-from package_spec import Package
+from protocol_src.package_spec import Package
 
 
 FORMAT = '%(asctime)s %(message)s'
@@ -18,11 +15,20 @@ class Serial_Protocol:
     the given serial port
     """
 
-    def __init__(self, **kwargs):
-        self.user_input = kwargs
+    def __init__(self, data_len, date_font_color, date_back_color, clock_font_color, clock_back_color):
+        self.data_len=data_len,
+        self.date_font_color=date_font_color,
+        self.date_back_color=date_back_color,
+        self.clock_font_color=clock_font_color,
+        self.clock_back_color=clock_back_color
     
     def init_package(self):
-        p = Package(self.user_input)
+        p = Package(data_len=self.data_len,
+                    date_font_color=self.date_font_color,
+                    date_back_color=self.date_back_color,
+                    clock_font_color=self.clock_font_color,
+                    clock_back_color=self.clock_back_color
+                )
         return p.create_package()
 
 
