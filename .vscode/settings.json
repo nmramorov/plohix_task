@@ -2,5 +2,6 @@
     "python.linting.flake8Enabled": false,
     "python.linting.pylintEnabled": false,
     "python.linting.enabled": true,
-    "python.linting.prospectorEnabled": true
+    "python.linting.prospectorEnabled": true,
+    "python.pythonPath": "/home/nmramorov/.local/share/virtualenvs/plohix-3I0iDW1b/bin/python"
 }

@@ -1,12 +1,11 @@
 import logging
 
-from protocol_src.package_spec import Package
+from package_spec import Package
 
 
 FORMAT = '%(asctime)s %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 logger = logging.getLogger('protocol')
-
 
 class Serial_Protocol:
 
