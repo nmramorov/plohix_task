@@ -7,7 +7,8 @@ FORMAT = '%(asctime)s %(message)s'
 logging.basicConfig(level=logging.INFO, format=FORMAT)
 logger = logging.getLogger('protocol')
 
-class Serial_Protocol:
+
+class SerialProtocol:
 
     """
     This protocol is used for transmitting data to 
@@ -27,7 +28,7 @@ class Serial_Protocol:
                     date_back_color=self.date_back_color,
                     clock_font_color=self.clock_font_color,
                     clock_back_color=self.clock_back_color
-                )
+                    )
         return p.create_package()
 
 
