@@ -42,16 +42,15 @@ class GUI(QWidget):
         self.initUI()
 
     def initUI(self):
-        try:
-            self.generateButtons()
-            self.setButtonsActivities()
+        self.generateButtons()
+        self.setButtonsActivities()
 
-            gui_grid = self.setGrid()
-            self.setLayout(gui_grid)
+        gui_grid = self.setGrid()
+        self.setLayout(gui_grid)
 
-            self.setGeometry(300, 300, 800, 500)
-            self.setWindowTitle('Mramorov-Volkov-Martinova')
-            self.show()
+        self.setGeometry(300, 300, 800, 500)
+        self.setWindowTitle('Mramorov-Volkov-Martinova')
+        self.show()
 
     def generatePackage(self):
         p = SerialProtocol(self.user_data['data_len'],

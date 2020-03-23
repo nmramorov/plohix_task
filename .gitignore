@@ -1,6 +1,5 @@
-.dockerignore
-docker-compose.yml
-Dockerfile
-Pipfile
-Pipfile.lock
-.vscode
+.dockerignore*
+docker-compose.yml*
+Dockerfile*
+Pip*
+.vscode*
