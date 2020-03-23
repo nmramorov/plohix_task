@@ -19,7 +19,7 @@
    ```
    git clone https://github.com/nmramorov/plohix_task.git
    ```
-   Либо скачать из браузера (архив)[https://github.com/nmramorov/plohix_task/archive/develop.zip]
+   Либо скачать из браузера [архив](https://github.com/nmramorov/plohix_task/archive/develop.zip)
 4. Перейти в директорию со скачанными файлами
 5. Запустить файл __interface.py__, находящийся в папке __src/gui/inteface.py__, командой:
    ```
