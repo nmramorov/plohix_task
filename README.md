@@ -15,7 +15,13 @@
    ```
    pip install bitstring PyQt5
    ```
-3. Запустить файл __interface.py__, находящийся в папке __src/gui/inteface.py__, командой:
+3. Клонировать репозиторий на свой ПК командой:
+   ```
+   git clone https://github.com/nmramorov/plohix_task.git
+   ```
+   Либо скачать из браузера (архив)[https://github.com/nmramorov/plohix_task/archive/develop.zip]
+4. Перейти в директорию со скачанными файлами
+5. Запустить файл __interface.py__, находящийся в папке __src/gui/inteface.py__, командой:
    ```
    python -m interface.py
    ```
