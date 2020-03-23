@@ -1,4 +1,4 @@
-# plohix_task
+# Домашняя работа
 
 Создание пакета реализовано с помощью двух файлов: [protocol_spec.py](https://github.com/nmramorov/plohix_task/blob/develop/src/protocol/protocol_spec.py) и [package_protocol_spec.py](https://github.com/nmramorov/plohix_task/blob/develop/src/protocol/package_spec.py)
 
